@@ -18,7 +18,7 @@ local function is_used(pass)
   return used or false
 end
 local function show_add(cb_extra, success, result)
-  —vardump(result)
+  --vardump(result)
     local receiver = cb_extra.receiver
     local text = "I added you to👥 "..result.title.."(👤"..result.participants_count..")"
     send_large_msg(receiver, text)
@@ -28,7 +28,7 @@ local function added(msg, target)
   chat_info("chat#id"..target, show_add, {receiver=receiver})
 end
 local function run(msg, matches)
-  if matches[1] == "/user" and msg.to.type == "chat" and matches[2] then
+  if matches[1] == "user" and msg.to.type == "chat" and matches[2] then
     local pass = matches[2]
     local id = msg.to.id
     if is_used(pass) then
@@ -50,7 +50,7 @@ local function run(msg, matches)
   else
   return " من نمیتوانم شما را به"..string.gsub(msg.to.id.print_name, '_', ' ').."اضافه کنم"
   end
-  if matches[1] == "/user" then
+  if matches[1] == "user" then
    local hash = 'setpass:'
    local chat_id = msg.to.id
    local pass = redis:hget(hash, chat_id)
@@ -67,5 +67,4 @@ return {
   },
   run = run
 }
---plugin by Thisisamirh
 end
